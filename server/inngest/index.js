@@ -3,7 +3,8 @@ import User from "../models/User.js";
 // import Booking from "../models/Booking.js";
 // import Show from "../models/Show.js";
 // import sendEmail from "../configs/nodeMailer.js";
-// import { set } from "mongoose";
+import { set } from "mongoose";
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 // // Create a client to send and receive events
 export const inngest = new Inngest({ id: "movie-ticket-booking" });
@@ -218,9 +219,9 @@ const syncUserUpdation = inngest.createFunction(
 
 
 export const functions = [
-    // syncUserCreation,
-    // syncUserDeletion,
-    // syncUserUpdation,
+    syncUserCreation,
+    syncUserDeletion,
+    syncUserUpdation,
     // releaseSeatsAndDeleteBooking,
     // sendBookingConfirmationEmail,
     // sendShowReminders,
