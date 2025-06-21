@@ -5,6 +5,9 @@ import connectDB from './configs/db.js';
 import { clerkMiddleware } from '@clerk/express'
 import { serve } from "inngest/express";
 import { inngest, functions } from "./inngest/index.js"
+
+console.log("Inngest functions being served:");
+console.log(functions.map(fn => fn.config.id));
 // import showRouter from './routes/showRoutes.js';
 // import bookingRouter from './routes/bookingRoutes.js';
 // import adminRouter from './routes/adminRoutes.js';

@@ -4,7 +4,7 @@ import User from "../models/User.js";
 // import Show from "../models/Show.js";
 // import sendEmail from "../configs/nodeMailer.js";
 import { set } from "mongoose";
-app.use("/api/inngest", serve({ client: inngest, functions }));
+
 
 // // Create a client to send and receive events
 export const inngest = new Inngest({ id: "movie-ticket-booking" });
