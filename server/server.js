@@ -4,7 +4,7 @@ import 'dotenv/config';
 import connectDB from './configs/db.js';
 import { clerkMiddleware } from '@clerk/express';
 import { handleClerkWebhook } from './controllers/clerkWebhooks.js';
-import showRouter from './routes/showRoutes.js';
+import showRouter from './routes/showRouter.js';
 
 const app = express();
 const port = 3000;
