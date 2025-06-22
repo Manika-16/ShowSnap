@@ -32,14 +32,14 @@ const App = () => {
         <Route path="/favourite" element={<Favourite />} />
         <Route
           path="/admin/*"
-          element={ <Layout />
-            // user ? (
-            //   <Layout />
-            // ) : (
-            //   <div className="min-h-screen flex justify-center items-center">
-            //     <SignIn fallbackRedirectUrl={"/admin"} />
-            //   </div>
-            // )
+          element={ 
+            user ? (
+              <Layout />
+            ) : (
+              <div className="min-h-screen flex justify-center items-center">
+                <SignIn fallbackRedirectUrl={"/admin"} />
+              </div>
+            )
           }
         >
           <Route index element={<Dashboard />} />

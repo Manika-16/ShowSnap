@@ -3,23 +3,23 @@ import { dummyShowsData } from "../../assets/assets";
 import Loading from "../../components/Loading";
 import Title from "../../components/admin/Title";
 import { dateFormat } from "../../lib/dateFormat";
-// import { useAppContext } from '../../context/AppContext';
+import { useAppContext } from '../../context/AppContext';
 
 const ListShows = () => {
   const currency = import.meta.env.VITE_CURRENCY;
 
-  // const {axios, getToken, user} = useAppContext()
+  const {axios, getToken, user} = useAppContext()
 
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getAllShows = async () => {
     try {
-      // const { data } = await axios.get("/api/admin/all-shows", {
-      //     headers: { Authorization: `Bearer ${await getToken()}` }
-      // });
-      // setShows(data.shows)
-      // setLoading(false);
+      const { data } = await axios.get("/api/admin/all-shows", {
+          headers: { Authorization: `Bearer ${await getToken()}` }
+      });
+      setShows(data.shows)
+      setLoading(false);
       setShows([
         {
           movie: dummyShowsData[0],
@@ -39,15 +39,15 @@ const ListShows = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     if (user) {
-  //       getAllShows();
-  //     }
-  //   }, [user]);
+    useEffect(() => {
+      if (user) {
+        getAllShows();
+      }
+    }, [user]);
 
-  useEffect(() => {
-    getAllShows();
-  }, []);
+  // useEffect(() => {
+  //   getAllShows();
+  // }, []);
 
   return !loading ? (
     <>
