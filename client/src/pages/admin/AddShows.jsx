@@ -62,30 +62,31 @@ const AddShows = () => {
     };
 
     const handleSubmit = async ()=>{
+        setAddingShow(true)
         try {
-            setAddingShow(true)
-
             if(!selectedMovie || Object.keys(dateTimeSelection).length === 0 || !showPrice){
-                return toast('Missing required fields');
-            }
+                toast('Missing required fields');
+            } else {
+                const showsInput = Object.entries(dateTimeSelection).map(([date, time])=> ({date, time}));
 
-            const showsInput = Object.entries(dateTimeSelection).map(([date, time])=> ({date, time}));
+                const payload = {
+                    movieId: selectedMovie,
+                    showsInput,
+                    showPrice: Number(showPrice)
+                }
+                console.log("payload", payload)
 
-            const payload = {
-                movieId: selectedMovie,
-                showsInput,
-                showPrice: Number(showPrice)
-            }
+                const { data } = await axios.post('/api/show/add', payload, {headers: { Authorization: `Bearer ${await getToken()}` }})
+                console.log("data", data)
 
-            const { data } = await axios.post('/api/show/add', payload, {headers: { Authorization: `Bearer ${await getToken()}` }})
-
-            if(data.success){
-                toast.success(data.message)
-                setSelectedMovie(null)
-                setDateTimeSelection({})
-                setShowPrice("")
-            }else{
-                toast.error(data.message)
+                if(data.success){
+                    toast.success(data.message)
+                    setSelectedMovie(null)
+                    setDateTimeSelection({})
+                    setShowPrice("")
+                }else{
+                    toast.error(data.message)
+                }
             }
         } catch (error) {
             console.error("Submission error:", error);
