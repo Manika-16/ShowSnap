@@ -16,9 +16,12 @@ import ListBookings from "./pages/admin/ListBookings";
 
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
+import { useAppContext } from "./context/AppContext";
+import { SignIn } from "@clerk/clerk-react";
 
 const App = () => {
   const isAdminRoute = useLocation().pathname.startsWith("/admin");
+  const {user} = useAppContext();
   return (
     <>
       <Toaster />

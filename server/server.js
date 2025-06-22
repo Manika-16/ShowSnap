@@ -23,7 +23,7 @@ app.use(clerkMiddleware());
 app.post('/api/webhooks/clerk', express.raw({ type: 'application/json' }), handleClerkWebhook);
 
 // API Routes
-app.get('/', (req, res) => res.send('Server is Live!'));
+app.get('/', (req, res) => res.send('Samyak Server is Live!'));
 app.use('/api/show', showRouter);
 
 // Uncomment these when needed

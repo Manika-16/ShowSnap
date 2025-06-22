@@ -12,7 +12,7 @@ const Navbar = () => {
   const { user } = useUser();
   const { openSignIn } = useClerk();
   const navigate = useNavigate();
-  const { favouriteMovies } = useAppContext();
+  const { favoriteMovies } = useAppContext();
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5">
@@ -57,7 +57,7 @@ const Navbar = () => {
           Releases
         </Link>
         
-      { favouriteMovies.length > 0 &&
+      { favoriteMovies.length > 0 &&
         <Link
           onClick={() => {
             scrollTo(0, 0);
