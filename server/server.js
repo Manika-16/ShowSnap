@@ -5,7 +5,7 @@ import connectDB from './configs/db.js';
 import { clerkMiddleware } from '@clerk/express';
 import { handleClerkWebhook } from './controllers/clerkWebhooks.js';
 import showRouter from './routes/showRouter.js';
-import bookingRouter from './routes/bookingRoutes.js';
+import bookingRouter from './routes/bookingRouter.js';
 
 const app = express();
 const port = 3000;

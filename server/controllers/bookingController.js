@@ -1,7 +1,7 @@
-import { inngest } from "../inngest/index.js";
+// import { inngest } from "../inngest/index.js";
 import Booking from "../models/Booking.js";
 import Show from "../models/Show.js"
-import stripe from 'stripe'
+// import stripe from 'stripe'
 
 
 // Function to check availability of selected seats for a movie
@@ -54,43 +54,44 @@ export const createBooking = async (req, res)=>{
         await showData.save();
 
          // Stripe Gateway Initialize
-         const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
+         // const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
 
          // Creating line items to for Stripe
-         const line_items = [{
-            price_data: {
-                currency: 'usd',
-                product_data:{
-                    name: showData.movie.title
-                },
-                unit_amount: Math.floor(booking.amount) * 100
-            },
-            quantity: 1
-         }]
+        //  const line_items = [{
+        //     price_data: {
+        //         currency: 'usd',
+        //         product_data:{
+        //             name: showData.movie.title
+        //         },
+        //         unit_amount: Math.floor(booking.amount) * 100
+        //     },
+        //     quantity: 1
+        //  }]
 
-         const session = await stripeInstance.checkout.sessions.create({
-            success_url: `${origin}/loading/my-bookings`,
-            cancel_url: `${origin}/my-bookings`,
-            line_items: line_items,
-            mode: 'payment',
-            metadata: {
-                bookingId: booking._id.toString()
-            },
-            expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // Expires in 30 minutes
-         })
+        //  const session = await stripeInstance.checkout.sessions.create({
+        //     success_url: `${origin}/loading/my-bookings`,
+        //     cancel_url: `${origin}/my-bookings`,
+        //     line_items: line_items,
+        //     mode: 'payment',
+        //     metadata: {
+        //         bookingId: booking._id.toString()
+        //     },
+        //     expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // Expires in 30 minutes
+        //  })
 
-         booking.paymentLink = session.url
-         await booking.save()
+        //  booking.paymentLink = session.url
+        //  await booking.save()
 
          // Run Inngest Sheduler Function to check payment status after 10 minutes
-         await inngest.send({
-            name: "app/checkpayment",
-            data: {
-                bookingId: booking._id.toString()
-            }
-         })
+        //  await inngest.send({
+        //     name: "app/checkpayment",
+        //     data: {
+        //         bookingId: booking._id.toString()
+        //     }
+        //  })
 
-         res.json({success: true, url: session.url})
+        //  res.json({success: true, url: session.url})
+        res.json({success: true, url: "https://www.google.com"})
 
     } catch (error) {
         console.log(error.message);
