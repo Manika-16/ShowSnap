@@ -4,6 +4,7 @@ import 'dotenv/config';
 import connectDB from './configs/db.js';
 import { clerkMiddleware } from '@clerk/express';
 import { handleClerkWebhook } from './controllers/clerkWebhooks.js';
+import showRouter from './routes/showRoutes.js';
 
 const app = express();
 const port = 3000;
@@ -20,9 +21,9 @@ app.post('/api/webhooks/clerk', express.raw({ type: 'application/json' }), handl
 
 // API Routes
 app.get('/', (req, res) => res.send('Server is Live!'));
+app.use('/api/show', showRouter);
 
 // Uncomment these when needed
-// import showRouter from './routes/showRoutes.js';
 // import bookingRouter from './routes/bookingRoutes.js';
 // import adminRouter from './routes/adminRoutes.js';
 // import userRouter from './routes/userRoutes.js';
@@ -30,7 +31,6 @@ app.get('/', (req, res) => res.send('Server is Live!'));
 
 // Stripe Webhooks Route
 // app.use('/api/stripe', express.raw({type: 'application/json'}), stripeWebhooks);
-// app.use('/api/show', showRouter);
 // app.use('/api/booking', bookingRouter);
 // app.use('/api/admin', adminRouter);
 // app.use('/api/user', userRouter);
