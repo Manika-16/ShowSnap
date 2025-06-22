@@ -6,7 +6,7 @@ import { clerkMiddleware } from '@clerk/express';
 import { handleClerkWebhook } from './controllers/clerkWebhooks.js';
 import showRouter from './routes/showRouter.js';
 import bookingRouter from './routes/bookingRouter.js';
-import adminRouter from './routes/adminRoutes.js';
+import adminRouter from './routes/adminRouter.js';
 
 const app = express();
 const port = 3000;
