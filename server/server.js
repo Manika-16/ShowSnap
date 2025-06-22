@@ -3,8 +3,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import connectDB from './configs/db.js';
 import { clerkMiddleware } from '@clerk/express';
-import { serve } from 'inngest/express';
-import { inngest, functions } from './inngest/index.js';
+import { handleClerkWebhook } from './controllers/clerkWebhooks.js';
 
 const app = express();
 const port = 3000;
@@ -16,22 +15,11 @@ app.use(express.json());
 app.use(cors());
 app.use(clerkMiddleware());
 
-// Safe logging of Inngest functions
-console.log('Inngest functions being served:');
-functions.forEach((fn, index) => {
-  if (!fn || !fn.config || !fn.config.id) {
-    console.error(`Function at index ${index} is invalid:`, fn);
-  } else {
-    console.log(fn.config.id);
-  }
-});
-
-// Filter valid functions only
-const validFunctions = functions.filter(fn => fn && fn.config && fn.config.id);
+// Clerk Webhook for user synchronization
+app.post('/api/webhooks/clerk', express.raw({ type: 'application/json' }), handleClerkWebhook);
 
 // API Routes
 app.get('/', (req, res) => res.send('Server is Live!'));
-app.use('/api/inngest', serve({ client: inngest, functions: validFunctions }));
 
 // Uncomment these when needed
 // import showRouter from './routes/showRoutes.js';
